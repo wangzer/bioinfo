@@ -6,7 +6,7 @@ set -o pipefail
 # set work path
 # PATH=/bin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 # or if you have install miniconda/anaconda and configure the bioconda 
-source activa biostar
+# source activa biostar
 work_dir=$1
 sample_info=$2
 reference=${work_dir}/data/reference/TAIR10_chr_all.fas
@@ -19,7 +19,7 @@ for sample in ${sample_names[@]}
 do
     # create an output file from the sample name
     result_file="${sample}.sam"
-    bwa mem $reference ${sample}_R1.fastq ${sample}_R2.fastq > ${work_dir}/analysis/align/$result_file
+    bwa mem -t 24 $reference ${sample}_R1_trimmed.fq ${sample}_R2_trimmed.fq > ${work_dir}/analysis/align/$result_file
     #echo "$result_file"
 done
 #snp calling
